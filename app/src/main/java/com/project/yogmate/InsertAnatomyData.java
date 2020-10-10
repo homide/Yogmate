@@ -25,5 +25,19 @@ public class InsertAnatomyData {
         dbh.insertBenefits(0,"Stimulates the kidneys, thyroid and prostate glands, and intestines.");
         dbh.insertBenefits(0,"Helps relieve stress");
         dbh.insertBenefits(0,"Improves digestion");
+
+        dbh.insertPose("Bridge Pose","https://www.yogajournal.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_1240/MTQ3MTc0Njc5MDM4MTQxOTAy/2hp_286_0621_bjk.webp",0 );
+        dbh.insertDetails(1,"Bridge Pose","https://www.yogajournal.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_1240/MTQ3MTc0Njc5MDM4MTQxOTAy/2hp_286_0621_bjk.webp","Bridge Pose can be whatever you need—energizing, rejuvenating, or luxuriously restorative.");
+        dbh.insertSteps(1,"Lie supine on the floor, and if necessary, place a thickly folded blanket under your shoulders to protect your neck. Bend your knees and set your feet on the floor, heels as close to the sitting bones as possible.");
+        dbh.insertSteps(1,"Exhale and, pressing your inner feet and arms actively into the floor, push your tailbone upward toward the pubis, firming (but not hardening) the buttocks, and lift the buttocks off the floor. Keep your thighs and inner feet parallel. Clasp the hands below your pelvis and extend through the arms to help you stay on the tops of your shoulders.");
+        dbh.insertSteps(1,"Lift your buttocks until the thighs are about parallel to the floor. Keep your knees directly over the heels, but push them forward, away from the hips, and lengthen the tailbone toward the backs of the knees. Lift the pubis toward the navel.");
+        dbh.insertSteps(1,"Lift your chin slightly away from the sternum and, firming the shoulder blades against your back, press the top of the sternum toward the chin. Firm the outer arms, broaden the shoulder blades, and try to lift the space between them at the base of the neck (where it's resting on the blanket) up into the torso.");
+        dbh.insertSteps(1,"Stay in the pose anywhere from 30 seconds to 1 minute. Release with an exhalation, rolling the spine slowly down onto the floor.");
+        dbh.insertBenefits(1,"Stretches the chest, neck, and spine");
+        dbh.insertBenefits(1,"Calms the brain and helps alleviate stress and mild depression");
+        dbh.insertBenefits(1,"Improves digestion");
+        dbh.insertBenefits(1,"Stimulates abdominal organs, lungs, and thyroid");
+
+
     }
 }

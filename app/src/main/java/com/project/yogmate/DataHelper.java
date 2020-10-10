@@ -20,7 +20,7 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String POSE_STEPS = "poseSteps";
 
     public DataHelper(Context context) {
-        super(context, DATABASE_NAME,null,4);
+        super(context, DATABASE_NAME,null,6);
         this.context = context;
     }
 

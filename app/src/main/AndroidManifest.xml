@@ -23,6 +23,7 @@
         <activity android:name=".AnatomyList"/>
         <activity android:name=".BenefitList"/>
         <activity android:name=".PosesForAnatomy"/>
+        <activity android:name=".PoseDesciption"/>
     </application>
 
 </manifest>
