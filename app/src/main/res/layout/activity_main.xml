@@ -6,27 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ViewFlipper
+        android:id="@+id/viewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="5dp"
+        android:autoStart="true"
+        android:flipInterval="5000"
+        app:layout_constraintBottom_toTopOf="@+id/anotomyButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
     <Button
         android:id="@+id/anotomyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="340dp"
+        android:background="@drawable/button_style"
         android:text="YOGA FOR YOUR ANATOMY"
         app:layout_constraintBottom_toTopOf="@+id/benefitButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        android:background="@drawable/button_style"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/benefitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="156dp"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="92dp"
+        android:background="@drawable/button_style"
         android:text="YOGA FOR YOUR BENEFIT"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lobster"
+        android:text="@string/yogmate_text"
+        android:textColor="#0B0A0A"
+        android:textSize="70sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/anotomyButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/button_style"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.004" />
 </androidx.constraintlayout.widget.ConstraintLayout>

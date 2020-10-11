@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         DataHelper dataHelper1 = new DataHelper(this);
         Cursor cursor1 = dataHelper1.getData("benefitList");
         if(cursor1.getCount() <=0){
-            InsertAnatomyData insertAllData = new InsertAnatomyData(this);
+            InsertBenefitData insertAllData = new InsertBenefitData(this);
         }
 
 //        try{

@@ -25,7 +25,7 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String POSE_STEPS_BENEFITS = "poseStepsBenefit";
 
     public DataHelper(Context context) {
-        super(context, DATABASE_NAME,null,11);
+        super(context, DATABASE_NAME,null,15);
         this.context = context;
     }
 
