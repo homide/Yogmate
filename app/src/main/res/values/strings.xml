@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Yogmate</string>
+    <string name="yogmate_text"><u>YOGMATE</u></string>
 </resources>

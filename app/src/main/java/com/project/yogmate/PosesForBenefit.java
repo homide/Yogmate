@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class PosesForAnatomy extends AppCompatActivity {
+public class PosesForBenefit extends AppCompatActivity {
     DataHelper dataHelper;
     GridView gridView;
     Cursor cursor;
@@ -31,7 +31,7 @@ public class PosesForAnatomy extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.anatomylist);
+        setContentView(R.layout.benefitlist);
         this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
@@ -39,13 +39,13 @@ public class PosesForAnatomy extends AppCompatActivity {
         textView.setText("SELECT POSE FOR MORE");
         pid = getIntent().getIntExtra("pid",0);
         gridadapter gd = new gridadapter();
-        gridView = findViewById(R.id.anatomyGridview);
+        gridView = findViewById(R.id.gridview);
         gridView.setAdapter(gd);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int poseid = position;
-                Intent intent = new Intent(PosesForAnatomy.this, PoseDesciption.class);
+                Intent intent = new Intent(PosesForBenefit.this, PoseDesciption.class);
                 intent.putExtra("pid", poseid);
                 startActivity(intent);
             }
@@ -55,7 +55,7 @@ public class PosesForAnatomy extends AppCompatActivity {
     class gridadapter extends BaseAdapter {
 
         public gridadapter() {
-            dataHelper = new DataHelper(PosesForAnatomy.this);
+            dataHelper = new DataHelper(PosesForBenefit.this);
             cursor = dataHelper.getData("poseListAnatomy");
             titleArr = new ArrayList<>();
             imgLinkArr = new ArrayList<>();
@@ -93,7 +93,7 @@ public class PosesForAnatomy extends AppCompatActivity {
             }
             ImageView anatomyImage = convertView.findViewById(R.id.folder_image);
             TextView anatomyTitle = convertView.findViewById(R.id.folder_title);
-            Picasso.with(PosesForAnatomy.this).load(imgLinkArr.get(position)).into(anatomyImage);
+            Picasso.with(PosesForBenefit.this).load(imgLinkArr.get(position)).into(anatomyImage);
             anatomyTitle.setText(titleArr.get(position));
 //            while (cursor.moveToNext()) {
 //                int id = cursor.getInt(3);

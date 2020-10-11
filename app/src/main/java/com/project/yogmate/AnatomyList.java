@@ -15,13 +15,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class AnatomyList extends AppCompatActivity {
     GridView gridView;
     DataHelper dataHelper;
+    ArrayList<String> titleArr;
+    ArrayList<String> imgLinkArr;
 
 
     @Override
@@ -31,6 +36,9 @@ public class AnatomyList extends AppCompatActivity {
         gridadapter gd = new gridadapter();
         gridView = findViewById(R.id.anatomyGridview);
         gridView.setAdapter(gd);
+        this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -50,6 +58,14 @@ public class AnatomyList extends AppCompatActivity {
         public gridadapter() {
             dataHelper = new DataHelper(AnatomyList.this);
             cursor = dataHelper.getData("anatomyList");
+            titleArr = new ArrayList<>();
+            imgLinkArr = new ArrayList<>();
+            while (cursor.moveToNext()) {
+                String title = cursor.getString(1);
+                String link = cursor.getString(2);
+                titleArr.add(title);
+                imgLinkArr.add(link);
+            }
         }
 
         @Override
@@ -75,12 +91,8 @@ public class AnatomyList extends AppCompatActivity {
             }
             ImageView anatomyImage = convertView.findViewById(R.id.folder_image);
             TextView anatomyTitle = convertView.findViewById(R.id.folder_title);
-            while (cursor.moveToNext()) {
-                String title = cursor.getString(1);
-                String link = cursor.getString(2);
-                Picasso.with(AnatomyList.this).load(link).into(anatomyImage);
-                anatomyTitle.setText(title);
-            }
+            Picasso.with(AnatomyList.this).load(imgLinkArr.get(position)).into(anatomyImage);
+            anatomyTitle.setText(titleArr.get(position));
             return convertView;
         }
     }

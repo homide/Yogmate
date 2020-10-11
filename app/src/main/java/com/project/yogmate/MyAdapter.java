@@ -1,9 +1,11 @@
 package com.project.yogmate;
 
 import android.content.Context;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,8 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+    Button speakButton;
     Context context;
     ArrayList<String> arrayList;
 
@@ -46,6 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView imageView;
         TextView title;
+        TextToSpeech tts;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

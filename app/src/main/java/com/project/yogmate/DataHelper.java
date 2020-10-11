@@ -18,9 +18,14 @@ public class DataHelper extends SQLiteOpenHelper {
     public static final String POSE_DETAILS = "poseDetails";
     public static final String POSE_BENEFITS = "poseBenefits";
     public static final String POSE_STEPS = "poseSteps";
+    public static final String BENEFIT_LIST = "benefitList";
+    public static final String POSE_LIST_BENEFIT = "poseListBenefits";
+    public static final String POSE_DETAILS_BENEFIT = "poseDetailsBenefit";
+    public static final String POSE_BENEFITS_OFBENEFITS = "poseBenefitsBenefit";
+    public static final String POSE_STEPS_BENEFITS = "poseStepsBenefit";
 
     public DataHelper(Context context) {
-        super(context, DATABASE_NAME,null,6);
+        super(context, DATABASE_NAME,null,11);
         this.context = context;
     }
 
@@ -31,6 +36,13 @@ public class DataHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_DETAILS + "(id INTEGER PRIMARY KEY AUTOINCREMENT, pid INTEGER, poseName TEXT NOT NULL ,imgLink TEXT NOT NULL, poseDesciption TEXT NOT NULL,  FOREIGN KEY (id) REFERENCES poseBenefits(pbid),FOREIGN KEY (id) REFERENCES poseSteps(psd))");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_BENEFITS + "(id INTEGER PRIMARY KEY AUTOINCREMENT, pbid INTEGER, poseBenefit TEXT NOT NULL)");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_STEPS+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, psd INTEGER, stepDetail TEXT NOT NULL )");
+
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + BENEFIT_LIST+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, anotomyName TEXT NOT NULL,imgLink TEXT NOT NULL, FOREIGN KEY (id) REFERENCES poseListBenefit(aid))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_LIST_BENEFIT+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, poseName TEXT NOT NULL, imgLink TEXT NOT NULL,aid INTEGER NOT NULL, FOREIGN KEY(id) REFERENCES poseDetailsBenefit(pid))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_DETAILS_BENEFIT + "(id INTEGER PRIMARY KEY AUTOINCREMENT, pid INTEGER, poseName TEXT NOT NULL ,imgLink TEXT NOT NULL, poseDesciption TEXT NOT NULL,  FOREIGN KEY (id) REFERENCES poseBenefitsBenefit(pbid),FOREIGN KEY (id) REFERENCES poseStepsBenefit(psd))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_BENEFITS_OFBENEFITS + "(id INTEGER PRIMARY KEY AUTOINCREMENT, pbid INTEGER, poseBenefit TEXT NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_STEPS_BENEFITS+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, psd INTEGER, stepDetail TEXT NOT NULL )");
         System.out.println("tables created");
     }
 
@@ -41,11 +53,22 @@ public class DataHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + POSE_DETAILS);
         db.execSQL("DROP TABLE IF EXISTS " + POSE_BENEFITS);
         db.execSQL("DROP TABLE IF EXISTS " + POSE_STEPS);
+        db.execSQL("DROP TABLE IF EXISTS " + BENEFIT_LIST);
+        db.execSQL("DROP TABLE IF EXISTS " + POSE_LIST_BENEFIT);
+        db.execSQL("DROP TABLE IF EXISTS " + POSE_DETAILS_BENEFIT);
+        db.execSQL("DROP TABLE IF EXISTS " + POSE_BENEFITS_OFBENEFITS);
+        db.execSQL("DROP TABLE IF EXISTS " + POSE_STEPS_BENEFITS);
+
         db.execSQL("CREATE TABLE IF NOT EXISTS " + ANATOMY_LIST+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, anotomyName TEXT NOT NULL,imgLink TEXT NOT NULL, FOREIGN KEY (id) REFERENCES poseListAnatomy(aid))");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_LIST_ANATOMY+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, poseName TEXT NOT NULL, imgLink TEXT NOT NULL,aid INTEGER NOT NULL, FOREIGN KEY(id) REFERENCES poseDetails(pid))");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_DETAILS + "(id INTEGER PRIMARY KEY AUTOINCREMENT, pid INTEGER, poseName TEXT NOT NULL ,imgLink TEXT NOT NULL, poseDesciption TEXT NOT NULL,  FOREIGN KEY (id) REFERENCES poseBenefits(pbid),FOREIGN KEY (id) REFERENCES poseSteps(psd))");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_BENEFITS + "(id INTEGER PRIMARY KEY AUTOINCREMENT, pbid INTEGER, poseBenefit TEXT NOT NULL)");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_STEPS+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, psd INTEGER, stepDetail TEXT NOT NULL )");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + BENEFIT_LIST+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, anotomyName TEXT NOT NULL,imgLink TEXT NOT NULL, FOREIGN KEY (id) REFERENCES poseListAnatomy(aid))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_LIST_BENEFIT+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, poseName TEXT NOT NULL, imgLink TEXT NOT NULL,aid INTEGER NOT NULL, FOREIGN KEY(id) REFERENCES poseDetails(pid))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_DETAILS_BENEFIT + "(id INTEGER PRIMARY KEY AUTOINCREMENT, pid INTEGER, poseName TEXT NOT NULL ,imgLink TEXT NOT NULL, poseDesciption TEXT NOT NULL,  FOREIGN KEY (id) REFERENCES poseBenefits(pbid),FOREIGN KEY (id) REFERENCES poseSteps(psd))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_BENEFITS_OFBENEFITS + "(id INTEGER PRIMARY KEY AUTOINCREMENT, pbid INTEGER, poseBenefit TEXT NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + POSE_STEPS_BENEFITS+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, psd INTEGER, stepDetail TEXT NOT NULL )");
         System.out.println("tables created");
     }
 
@@ -109,6 +132,81 @@ public class DataHelper extends SQLiteOpenHelper {
     }
 
     public boolean insertSteps(int psd,String stepDetail){
+        try{
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("psd",psd);
+            contentValues.put("stepDetail",stepDetail);
+            long check = db.insert(POSE_STEPS,null,contentValues);
+            return check!= -1;
+        }catch (Exception e){
+            System.out.println("Exception in inserting steps in Anatomy");
+            return false;
+        }
+    }
+
+
+
+    public boolean insertBenefit(String anatomyName,String imgLink){
+        try{
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("anotomyName", anatomyName);
+            contentValues.put("imgLink",imgLink);
+            long check = db.insert(ANATOMY_LIST,null,contentValues);
+            return check!= -1;
+        }catch (Exception e){
+            System.out.println("Exception in inserting Anatomy");
+            return false;
+        }
+    }
+
+    public boolean insertPoseBenefit(String poseName,String imgLink,int aid){
+        try{
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("poseName",poseName);
+            contentValues.put("imgLink",imgLink);
+            contentValues.put("aid", aid);
+            long check = db.insert(POSE_LIST_ANATOMY,null,contentValues);
+            return check!= -1;
+        }catch (Exception e){
+            System.out.println("Exception in inserting Anatomy pose");
+            return false;
+        }
+    }
+
+    public boolean insertDetailsBenefit(int pid, String poseName, String imgLink,String poseDescription){
+        try{
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("pid", pid);
+            contentValues.put("poseName",poseName);
+            contentValues.put("imgLink",imgLink);
+            contentValues.put("poseDesciption", poseDescription);
+            long check = db.insert(POSE_DETAILS,null,contentValues);
+            return check != -1;
+        }catch (Exception e){
+            System.out.println("Exception in insertDetails of Anatomy");
+            return false;
+        }
+    }
+
+    public boolean insertBenefitsBenefit(int pbid, String poseBenefit){
+        try{
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("pbid",pbid);
+            contentValues.put("poseBenefit",poseBenefit);
+            long check = db.insert(POSE_BENEFITS,null,contentValues);
+            return check!= -1;
+        }catch (Exception e){
+            System.out.println("Exception in inserting benefits in anatomy");
+            return false;
+        }
+    }
+
+    public boolean insertStepsBenefit(int psd,String stepDetail){
         try{
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
